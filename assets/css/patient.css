@@ -24,6 +24,7 @@
 }
 
 .profile-subtitle {
+  font-family: "JetBrains Mono", monospace;
   font-weight: 300;
   color: var(--subtext-color);
   font-size: 15px;
