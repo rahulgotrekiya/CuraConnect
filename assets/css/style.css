@@ -118,4 +118,21 @@ td {
   margin: 15px 0;
   width: 98%;
 }
+
 /* signup page end */
+
+/* menu navbar start */
+
+.menu-btn {
+  padding: 6px;
+  color: #3b3b3b;
+  background-position: 30% 50%;
+  background-repeat: no-repeat;
+  transition: 0.5s;
+}
+
+.menu-icon-dashbord {
+  background-image: url('../images/icons/dashboard.svg');
+}
+
+/* menu navbar start */
