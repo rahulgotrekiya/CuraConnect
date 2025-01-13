@@ -347,7 +347,9 @@ input[type=search]:focus {
   padding-left: 40%;
   font-weight: 500;
   font-size: 16px;
-
+  margin: 0;
+  padding-top: 16px;
+  padding-bottom: 16px;
 }
 
 
