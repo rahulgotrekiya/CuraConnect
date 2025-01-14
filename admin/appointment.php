@@ -464,7 +464,6 @@ include("../includes/admin/header.php");
             $spcil_res = $database->query("select sname from specialties where id='$spe'");
             $spcil_array = $spcil_res->fetch_assoc();
             $spcil_name = $spcil_array["sname"];
-            $nic = $row['docnic'];
             $tele = $row['doctel'];
             echo '
             <div id="popup1" class="overlay">
@@ -505,16 +504,6 @@ include("../includes/admin/header.php");
                             <tr>
                                 <td class="label-td" colspan="2">
                                 ' . $email . '<br><br>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">
-                                    <label for="nic" class="form-label">NIC: </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">
-                                ' . $nic . '<br><br>
                                 </td>
                             </tr>
                             <tr>

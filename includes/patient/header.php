@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (!isset($_SESSION["user"]) || empty($_SESSION["user"]) || $_SESSION["usertype"] != 'a') {
+if (!isset($_SESSION["user"]) || empty($_SESSION["user"]) || $_SESSION["usertype"] != 'p') {
     header("location: ../login.php");
     exit();
 }
@@ -25,6 +25,13 @@ $stmt->bind_param('s', $useremail);
 $stmt->execute();
 $userrow = $stmt->get_result();
 $userfetch = $userrow->fetch_assoc();
+
+$userid = $userfetch['pid'];
+$username = $userfetch['pname'];
+
+date_default_timezone_set('Asia/Kolkata');
+
+$today = date('Y-m-d');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,5 +43,5 @@ $userfetch = $userrow->fetch_assoc();
     <link rel="stylesheet" href="../assets/css/animations.css">
     <link rel="stylesheet" href="../assets/css/main.css">
     <link rel="stylesheet" href="../assets/css/admin.css">
-    <title><?php echo 'Admin - ' . (isset($pageTitle) ? $pageTitle : 'Admin Panel'); ?></title>
+    <title><?php echo 'Patient - ' . (isset($pageTitle) ? $pageTitle : 'Patient Panel'); ?></title>
 </head>

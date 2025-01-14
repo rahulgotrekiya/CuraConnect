@@ -332,7 +332,9 @@ input[type=search]:focus {
   padding: 8px 20px 8px 40px;
 }
 
-
+.dashboard-change {
+  justify-content: flex-start !important;
+}
 
 .menu-btn {
   padding: 6px;

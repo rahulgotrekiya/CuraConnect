@@ -1,5 +1,4 @@
 <?php
-$pageTitle = basename($_SERVER['PHP_SELF'], ".php");
 include("../includes/admin/header.php");
 ?>
 
