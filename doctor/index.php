@@ -1,141 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patient - CuraConnect</title>
-    <link rel="icon" href="../assets/images/fav.ico" type="image/x-icon">
-    <link rel="stylesheet" href="../assets/css/animations.css">
-    <link rel="stylesheet" href="../assets/css/main.css">
-    <link rel="stylesheet" href="../assets/css/admin.css">
-
-    <style>
-    .dashbord-tables,
-    .doctor-heade {
-        animation: transitionIn-Y-over 0.5s;
-    }
-
-    .filter-container {
-        animation: transitionIn-Y-bottom 0.5s;
-    }
-
-    .sub-table,
-    #anim {
-        animation: transitionIn-Y-bottom 0.5s;
-    }
-
-    .doctor-heade {
-        animation: transitionIn-Y-over 0.5s;
-    }
-    </style>
-</head>
+<?php
+include("../includes/doctor/header.php");
+?>
 
 <body>
-    <?php
-    include("../includes/connection.php");
-
-    session_start();
-
-    if (isset($_SESSION['user'])) {
-        if (($_SESSION['user']) == '' or $_SESSION['usertype'] != 'd') {
-            header('location: ../login.php');
-        } else {
-            $useremail = $_SESSION['user'];
-        }
-    } else {
-        header('location: ../login.php');
-    }
-
-    // import database
-    include("../connection.php");
-    $userrow = $database->query("select * from doctor where docemail='$useremail'");
-    $userfetch = $userrow->fetch_assoc();
-    $userid = $userfetch["docid"];
-    $username = $userfetch["docname"];
-
-    function shortenString($string, $length)
-    {
-        if (strlen($string) > $length) {
-            return substr($string, 0, $length) . '...';
-        } else {
-            return $string;
-        }
-    }
-
-    ?>
     <div class="container">
-        <div class="menu">
-            <table class="menu-conner" border="0">
-                <tr>
-                    <td style="padding:10px" colspan="2">
-                        <table border="0" class="profile-container">
-                            <tr>
-                                <td width="30%" style="padding-left:20px">
-                                    <img src="../assets/images/user.png" alt="" width="100%" style="border-radius:50%">
-                                </td>
-                                <td>
-                                    <p class="profile-title"><?php echo shortenString($username, 13); ?></p>
-                                    <p class="profile-subtitle"><?php echo shortenString($useremail, 22); ?></p>
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <a href="../logout.php"><input type="button" value="Log out"
-                                            class="login-btn common-light-btn logout-btn btn-primary-soft btn"></a>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr class="menu-row">
-                    <td class="menu-btn menu-icon-dashbord menu-active menu-icon-dashbord-active">
-                        <a href="index.php" class="non-style-link-menu non-style-link-menu-active">
-                            <div>
-                                <p class="menu-text">Dashboard</p>
-                            </div>
-                        </a>
-                    </td>
-                </tr>
-                <tr class="menu-row">
-                    <td class="menu-btn menu-icon-appoinment">
-                        <a href="appointment.php" class="non-style-link-menu">
-                            <div>
-                                <p class="menu-text">My Appointments</p>
-                            </div>
-                        </a>
-                    </td>
-                </tr>
-                <tr class="menu-row">
-                    <td class="menu-btn menu-icon-session">
-                        <a href="schedule.php" class="non-style-link-menu">
-                            <div>
-                                <p class="menu-text">My Sessions</p>
-                            </div>
-                        </a>
-                    </td>
-                </tr>
-                <tr class="menu-row">
-                    <td class="menu-btn menu-icon-patient">
-                        <a href="patient.php" class="non-style-link-menu">
-                            <div>
-                                <p class="menu-text">My Patients</p>
-                            </div>
-                        </a>
-                    </td>
-                </tr>
-                <tr class="menu-row">
-                    <td class="menu-btn menu-icon-settings">
-                        <a href="settings.php" class="non-style-link-menu">
-                            <div>
-                                <p class="menu-text">Settings</p>
-                            </div>
-                        </a>
-                    </td>
-                </tr>
-            </table>
-        </div>
+        <?php include '../includes/doctor/sidebar.php'; ?>
         <div class="dash-body" style="margin-top: 15px">
             <table border="0" width="100%" style=" border-spacing: 0;margin:0;padding:0;">
                 <tr>
@@ -183,8 +52,8 @@
                                             You can view your dailly schedule, Reach Patients Appointment at
                                             home!<br><br>
                                         </p>
-                                        <a href="appointment.php" class="non-style-link"><button class="btn-primary btn"
-                                                style="width:30%">View My Appointments</button>
+                                        <a href="appointments.php" class="non-style-link"><button
+                                                class="btn-primary btn" style="width:30%">View My Appointments</button>
                                         </a>
                                         <br>
                                         <br>
@@ -313,7 +182,7 @@
                                                                         
                                                                         <br>
                                                                         <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">We  couldnt find anything related to your keywords !</p>
-                                                                        <a class="non-style-link" href="schedule.php"><button  class="login-btn btn-primary-soft btn"  style="display: flex;justify-content: center;align-items: center;margin-left:20px;">&nbsp; Show all Sessions &nbsp;</font></button>
+                                                                        <a class="non-style-link" href="sessions.php"><button  class="login-btn btn-primary-soft btn"  style="display: flex;justify-content: center;align-items: center;margin-left:20px;">&nbsp; Show all Sessions &nbsp;</font></button>
                                                                         </a>
                                                                         </center>
                                                                         <br><br><br><br>
