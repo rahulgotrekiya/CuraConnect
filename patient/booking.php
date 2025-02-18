@@ -124,7 +124,7 @@ include("../includes/patient/header.php");
                                                 $apponum = ($result12->num_rows) + 1;
 
                                                 echo '
-                                        <form action="booking-complete.php" method="post">
+                                        <form action="payment.php" method="post">
                                             <input type="hidden" name="scheduleid" value="' . $scheduleid . '" >
                                             <input type="hidden" name="apponum" value="' . $apponum . '" >
                                             <input type="hidden" name="date" value="' . $today . '" >
@@ -153,7 +153,7 @@ include("../includes/patient/header.php");
                                                             Session Title: ' . $title . '<br>
                                                             Session Scheduled Date: ' . $scheduledate . '<br>
                                                             Session Starts : ' . $scheduletime . '<br>
-                                                            Channeling fee : <b>LKR.2 000.00</b>
+                                                            Channeling fee : <b>₹ 200.00</b>
 
                                                         </div>
                                                         <br>
