@@ -15,6 +15,6 @@ if ($_GET) {
     //import database
     include("../includes/connection.php");
     $id = $_GET["id"];
-    $sql = $database->query("delete from schedule where scheduleid='$id';");
-    header("location: schedule.php");
+    $sql = $database->query("delete from appointment where appoid='$id';");
+    header("location: appointment.php");
 }
