@@ -5,10 +5,6 @@ include("../includes/patient/header.php");
 <body>
     <?php
 
-    //learn from w3schools.com
-
-    session_start();
-
     if (isset($_SESSION["user"])) {
         if (($_SESSION["user"]) == "" or $_SESSION['usertype'] != 'p') {
             header("location: ../login.php");
@@ -21,7 +17,7 @@ include("../includes/patient/header.php");
 
 
     //import database
-    include("../connection.php");
+    include("../includes/connection.php");
     $userrow = $database->query("select * from patient where pemail='$useremail'");
     $userfetch = $userrow->fetch_assoc();
     $userid = $userfetch["pid"];
