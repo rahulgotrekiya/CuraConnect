@@ -1,23 +1,6 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>CuraConnect</title>
-    <link href="assets/css/style.css" rel="stylesheet" />
-    <link href="assets/css/style-common.css" rel="stylesheet" />
-</head>
-
-<body>
-
-    <!--header-->
-
-    <?php
-  include('includes/header.php');
-  include('includes/connection.php');
-
+<?php
   session_start();
+  include('includes/connection.php');
 
   $_SESSION['user'] = '';
   $_SESSION['usertype'] = '';
@@ -28,9 +11,9 @@
 
   $_SESSION['date'] = $date;
 
-  if ($_POST) {
-    $result = $database->query('select * from users');
+  $error = '<label for="promter" class="form-label"></label>';
 
+  if ($_POST) {
     $fname = $_SESSION['personal']['fname'];
     $lname = $_SESSION['personal']['lname'];
     $name = $fname . ' ' . $lname;
@@ -49,25 +32,33 @@
         $database->query("insert into patient(pemail, pname, ppassword, paddress, pdob, ptel) values('$email', '$name', '$newpassword', '$address', '$dob', '$tele');");
         $database->query("insert into users values('$email','p')");
 
-        print_r("insert into patient values($pid, '$email', '$fname', '$lname', '$newpassword', '$address', '$dob', '$tele');");
+        // print_r("insert into patient values($pid, '$email', '$fname', '$lname', '$newpassword', '$address', '$dob', '$tele');");
         $_SESSION['user'] = $email;
         $_SESSION['usertype'] = 'p';
         $_SESSION['username'] = $fname;
 
         header('Location: patient/index.php');
-        $error = '<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;"></label>';
+        exit();
       }
     } else {
       $error = '<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Password does not match, Please Try again!</label>';
     }
-  } else {
-    // header('location: signup.php');
-    $error = '<label for="promter" class="form-label"></label>';
   }
+?>
+<!doctype html>
+<html lang="en">
 
-  ?>
+<head>
+    <?php $pageTitle='Create Account'; include('includes/head.php'); ?>
+</head>
 
+<body>
 
+    <!--header-->
+
+    <?php
+    include('includes/header.php');
+    ?>
 
     <!--header end-->
 

@@ -1,24 +1,6 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title></title>
-    <link href="assets/css/style.css" rel="stylesheet" />
-    <link href="assets/css/style-common.css" rel="stylesheet" />
-</head>
-
-<body>
-
-    <!--header-->
-
-    <?php
-  include('includes/header.php');
-
-  include('includes/connection.php');
-
+<?php
   session_start();
+  include('includes/connection.php');
 
   $_SESSION['user'] = '';
   $_SESSION['usertype'] = '';
@@ -37,13 +19,25 @@
       'dob' => $_POST['dob']
     );
 
-    print_r($_SESSION['personal']);
+    // print_r($_SESSION['personal']);
     header('location: create-account.php');
+    exit();
   }
+?>
+<!doctype html>
+<html lang="en">
 
+<head>
+    <?php $pageTitle='Register'; include('includes/head.php'); ?>
+</head>
 
+<body>
 
-  ?>
+    <!--header-->
+
+    <?php
+    include('includes/header.php');
+    ?>
 
     <!--header end-->
 

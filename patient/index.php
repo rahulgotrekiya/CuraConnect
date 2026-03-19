@@ -26,10 +26,7 @@ include("../includes/patient/header.php");
                             echo $today;
 
 
-                            $patientrow = $database->query("select  * from  patient;");
-                            $doctorrow = $database->query("select  * from  doctor;");
-                            $appointmentrow = $database->query("select  * from  appointment where appodate>='$today';");
-                            $schedulerow = $database->query("select  * from  schedule where scheduledate='$today';");
+                            $counts = getDashboardCounts($database);
 
 
                             ?>
@@ -106,9 +103,7 @@ include("../includes/patient/header.php");
                                                     <div class="dashboard-items"
                                                         style="padding:20px; justify-content: space-between; margin:auto;width:95%;display: flex">
                                                         <div>
-                                                            <div class="h1-dashboard">
-                                                                <?php echo $doctorrow->num_rows  ?>
-                                                            </div><br>
+                                                                <?php echo $counts['doctors']  ?>
                                                             <div class="h3-dashboard">
                                                                 All Doctors &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                             </div>
@@ -122,9 +117,7 @@ include("../includes/patient/header.php");
                                                     <div class="dashboard-items"
                                                         style="justify-content: space-between; padding:20px;margin:auto;width:95%;display: flex;">
                                                         <div>
-                                                            <div class="h1-dashboard">
-                                                                <?php echo $patientrow->num_rows  ?>
-                                                            </div><br>
+                                                                <?php echo $counts['patients']  ?>
                                                             <div class="h3-dashboard">
                                                                 All Patients &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                             </div>
@@ -140,9 +133,7 @@ include("../includes/patient/header.php");
                                                     <div class="dashboard-items"
                                                         style="justify-content: space-between; padding:20px;margin:auto;width:95%;display: flex; ">
                                                         <div>
-                                                            <div class="h1-dashboard">
-                                                                <?php echo $appointmentrow->num_rows  ?>
-                                                            </div><br>
+                                                                <?php echo $counts['appointments']  ?>
                                                             <div class="h3-dashboard">
                                                                 NewBooking &nbsp;&nbsp;
                                                             </div>
@@ -156,9 +147,7 @@ include("../includes/patient/header.php");
                                                     <div class="dashboard-items"
                                                         style="justify-content: space-between; padding:20px;margin:auto;width:95%;display: flex;padding-top:21px;padding-bottom:21px;">
                                                         <div>
-                                                            <div class="h1-dashboard">
-                                                                <?php echo $schedulerow->num_rows  ?>
-                                                            </div><br>
+                                                                <?php echo $counts['sessions']  ?>
                                                             <div class="h3-dashboard" style="font-size: 15px">
                                                                 Today Sessions
                                                             </div>

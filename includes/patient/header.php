@@ -1,23 +1,15 @@
 <?php
-session_start();
+include_once("../includes/auth.php");
+requireLogin('p');
 
-if (!isset($_SESSION["user"]) || empty($_SESSION["user"]) || $_SESSION["usertype"] != 'p') {
-    header("location: ../login.php");
-    exit();
-}
-
-include("../includes/connection.php");
+include_once("../includes/connection.php");
+include_once("../includes/functions.php");
 
 $pageTitle = (basename($_SERVER['PHP_SELF']) == 'index.php') ? 'Dashboard' : ucfirst(basename($_SERVER['PHP_SELF'], ".php"));
 
 $activePage = strtolower($pageTitle);
 
 $useremail = $_SESSION['user'];
-
-function shortenString($string, $length)
-{
-    return strlen($string) > $length ? substr($string, 0, $length) . '...' : $string;
-}
 
 $sqlmain = 'select * from patient where pemail=?';
 $stmt = $database->prepare($sqlmain);

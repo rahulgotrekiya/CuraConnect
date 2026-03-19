@@ -1,25 +1,8 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Login</title>
-    <link rel="stylesheet" href="assets/css/style.css" />
-    <link rel="stylesheet" href="assets/css/style-common.css" />
-</head>
-
-<body>
-
-    <?php
-
-  // include header file
-  include('includes/header.php');
-
+<?php
+  session_start();
   // include database
   include('includes/connection.php');
-
-  session_start();
+  include_once('includes/functions.php');
 
   $_SESSION['user'] = '';
   $_SESSION['usertype'] = '';
@@ -38,39 +21,32 @@
 
     $result = $database->query("select * from users where email='$email'");
     if ($result->num_rows == 1) {
-      $utype = $result->fetch_assoc()['usertype'];
-      if ($utype == 'p') {
-        $checker = $database->query("select * from patient where pemail='$email' and ppassword='$password'");
-        if ($checker->num_rows == 1) {
-          //   Patient dashbord
-          $_SESSION['user'] = $email;
-          $_SESSION['usertype'] = 'p';
+      $utype = $result->fetch_assoc()['type'];
+      $user = getUserByEmail($database, $email, $utype);
+      
+      $is_valid = false;
+      $redirect_url = '';
+      
+      if ($user) {
+          if ($utype == 'p' && $user['ppassword'] == $password) {
+              $is_valid = true;
+              $redirect_url = 'patient/index.php';
+          } elseif ($utype == 'a' && $user['apassword'] == $password) {
+              $is_valid = true;
+              $redirect_url = 'admin/index.php';
+          } elseif ($utype == 'd' && $user['docpassword'] == $password) {
+              $is_valid = true;
+              $redirect_url = 'doctor/index.php';
+          }
+      }
 
-          header('location: patient/index.php');
-        } else {
-          $error = '<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Invalid email or password, Please try again!</label>';
-        }
-      } elseif ($utype == 'a') {
-        $checker = $database->query("select * from admin where aemail='$email' and apassword='$password'");
-        if ($checker->num_rows == 1) {
-          //   Admin dashbord
+      if ($is_valid) {
           $_SESSION['user'] = $email;
-          $_SESSION['usertype'] = 'a';
-
-          header('location: admin/index.php');
-        } else {
+          $_SESSION['usertype'] = $utype;
+          header('location: ' . $redirect_url);
+          exit();
+      } else {
           $error = '<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Invalid email or password, Please try again!</label>';
-        }
-      } elseif ($utype == 'd') {
-        $checker = $database->query("select * from doctor where docemail='$email' and docpassword='$password'");
-        if ($checker->num_rows == 1) {
-          //   doctor dashbord
-          $_SESSION['user'] = $email;
-          $_SESSION['usertype'] = 'd';
-          header('location: doctor/index.php');
-        } else {
-          $error = '<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Invalid email or password, Please try again!</label>';
-        }
       }
     } else {
       $error = '<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">We cant found any account for this email.         </label>';
@@ -78,8 +54,20 @@
   } else {
     $error = '<label for="promter" class="form-label">&nbsp;</label>';
   }
+?>
+<!doctype html>
+<html lang="en">
 
-  ?>
+<head>
+    <?php $pageTitle='Login'; include('includes/head.php'); ?>
+</head>
+
+<body>
+
+    <?php
+    // include header file
+    include('includes/header.php');
+    ?>
 
     <!--login section-->
 

@@ -1,12 +1,6 @@
 <?php
-session_start();
-if (isset($_SESSION["user"])) {
-    if (($_SESSION["user"]) == "" or $_SESSION['usertype'] != 'd') {
-        header("location: ../login.php");
-    }
-} else {
-    header("location: ../login.php");
-}
+    include_once("../includes/auth.php");
+    requireLogin('d');
 
 if ($_GET) {
     // Import database

@@ -43,10 +43,7 @@ include("../includes/admin/header.php");
                             $today = date('Y-m-d');
                             echo $today;
 
-                            $patientrow = $database->query("select  * from  patient;");
-                            $doctorrow = $database->query("select  * from  doctor;");
-                            $appointmentrow = $database->query("select  * from  appointment where appodate>='$today';");
-                            $schedulerow = $database->query("select  * from  schedule where scheduledate='$today';");
+                            $counts = getDashboardCounts($database);
                             ?>
                         </p>
                     </td>
@@ -69,9 +66,7 @@ include("../includes/admin/header.php");
                                     <div class="dashboard-items"
                                         style="padding:20px;width:95%;display: flex; justify-content: space-between;">
                                         <div>
-                                            <div class="h1-dashboard">
-                                                <?= $doctorrow->num_rows  ?>
-                                            </div><br>
+                                                <?= $counts['doctors']  ?>
                                             <div class="h3-dashboard">
                                                 Doctors &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             </div>
@@ -85,9 +80,7 @@ include("../includes/admin/header.php");
                                     <div class="dashboard-items"
                                         style="padding:20px;width:95%;display: flex; justify-content: space-between;">
                                         <div>
-                                            <div class="h1-dashboard">
-                                                <?= $patientrow->num_rows  ?>
-                                            </div><br>
+                                                <?= $counts['patients']  ?>
                                             <div class="h3-dashboard">
                                                 Patients &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             </div>
@@ -101,9 +94,7 @@ include("../includes/admin/header.php");
                                     <div class="dashboard-items"
                                         style="padding:20px; width:95%;display: flex; justify-content: space-between; ">
                                         <div>
-                                            <div class="h1-dashboard">
-                                                <?= $appointmentrow->num_rows  ?>
-                                            </div><br>
+                                                <?= $counts['appointments']  ?>
                                             <div class="h3-dashboard">
                                                 NewBooking &nbsp;&nbsp;
                                             </div>
@@ -117,9 +108,7 @@ include("../includes/admin/header.php");
                                     <div class="dashboard-items"
                                         style="padding:20px; width:95%;display: flex;  justify-content: space-between;">
                                         <div>
-                                            <div class="h1-dashboard">
-                                                <?= $schedulerow->num_rows  ?>
-                                            </div><br>
+                                                <?= $counts['sessions']  ?>
                                             <div class="h3-dashboard">
                                                 Today Sessions
                                             </div>
