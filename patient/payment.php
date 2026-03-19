@@ -269,6 +269,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['card_number'])) {
 
             if (hasErrors) {
                 e.preventDefault();
+            } else {
+                // Show processing state
+                const btn = e.target.querySelector('button[type="submit"]');
+                btn.innerHTML = 'Processing Payment... Please wait <i class="fa fa-spinner fa-spin"></i>';
+                btn.style.pointerEvents = 'none';
+                btn.style.opacity = '0.7';
             }
         });
     </script>

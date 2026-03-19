@@ -62,8 +62,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'total_price' => 'Contact clinic for fee details'
             );
 
+            $emailSent = false;
             if (sendOrderConfirmation($orderDetails)) {
-                $message .= " A confirmation email has been sent to your email address.";
+                $emailSent = true;
             }
 
             $stmt_schedule->close();
@@ -111,11 +112,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <?php if ($success): ?>
                     <div class="success-message">
                         <h2>Booking Successful!</h2>
-                        <p><?php echo htmlspecialchars($message); ?></p>
+                        <p>Your appointment has been successfully booked!</p>
+                        
+                        <?php if (!$emailSent): ?>
+                            <div style="background-color: #f8d7da; color: #721c24; padding: 15px; border-radius: 4px; border: 1px solid #f5c6cb; margin-bottom: 20px; font-weight: 500;">
+                                Note: The confirmation email could not be sent due to internal server issues, but your appointment has been successfully placed.
+                            </div>
+                        <?php endif; ?>
+
                         <div class="booking-details">
                             <p>Appointment Number: <?php echo htmlspecialchars($apponum); ?></p>
                             <p>Transaction ID: <?php echo htmlspecialchars($transaction_id); ?></p>
-                            <p>A confirmation email has been sent to: <?php echo htmlspecialchars($useremail); ?></p>
+                            
+                            <?php if ($emailSent): ?>
+                                <p>A confirmation email has been sent to: <?php echo htmlspecialchars($useremail); ?></p>
+                            <?php endif; ?>
                         </div>
                         <a href="appointment.php" class="btn btn-primary">View My Appointments</a>
                     </div>
